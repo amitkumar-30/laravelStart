@@ -14,68 +14,24 @@
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover">
-                  <tbody><tr>
+                  <tbody>
+                    <tr>
                     <th>Id</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Type</th>
                     <th>More Info</th>
-                    <th>Modify</th>
+                    <th>Photo</th>
+                    <th>Registered At</th>
                   </tr>
-                  <tr>
-                    <td>183</td>
-                    <td>John Doe</td>
-                    <td>11-7-2014</td>
-                    <td><span class="tag tag-success">Approved</span></td>
-                    <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    <td>
-                      <a href="#">
-                          <i class="fa fa-edit"></i>
-                      </a>
-                      &nbsp;/&nbsp;
-                      <a href="#">
-                          <i class="fa fa-trash red"></i>
-                      </a>
-                  </td>
-                  </tr>
-                  <tr>
-                    <td>219</td>
-                    <td>Alexander Pierce</td>
-                    <td>11-7-2014</td>
-                    <td><span class="tag tag-warning">Pending</span></td>
-                    <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    <td>
-                      <a href="#">
-                          <i class="fa fa-edit"></i>
-                      </a>
-                      &nbsp;/&nbsp;
-                      <a href="#">
-                          <i class="fa fa-trash red"></i>
-                      </a>
-                  </td>
-                  </tr>
-                  <tr>
-                    <td>657</td>
-                    <td>Bob Doe</td>
-                    <td>11-7-2014</td>
-                    <td><span class="tag tag-primary">Approved</span></td>
-                    <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    <td>
-                      <a href="#">
-                          <i class="fa fa-edit"></i>
-                      </a>
-                      &nbsp;/&nbsp;
-                      <a href="#">
-                          <i class="fa fa-trash red"></i>
-                      </a>
-                  </td>
-                  </tr>
-                  <tr>
-                    <td>175</td>
-                    <td>Mike Doe</td>
-                    <td>11-7-2014</td>
-                    <td><span class="tag tag-danger">Denied</span></td>
-                    <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                  <tr v-for="user in users" :key="user.id">
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.name}}</td>
+                    <td>{{ user.email}}</td>
+                    <td>{{ user.type}}</td>
+                    <td>{{ user.bio}}</td>
+                    <td>{{ user.photo}}</td>
+                    <td>{{ user.created_at}}</td>
                     <td>
                       <a href="#">
                           <i class="fa fa-edit"></i>
@@ -160,6 +116,7 @@
     export default {
         data() {
             return {
+                users: {},
                 form: new Form({
                     name: '',
                     email : '',
@@ -171,12 +128,16 @@
         }
         },
         methods: {
+            loadUsers(){
+                axios.get("api/user").then(({ data }) => (this.users = data.data));
+            },
             createUser(){
                 this.form.post('api/user')
             }
         },
-        mounted() {
+        created() {
             console.log('Component mounted.')
+            this.loadUsers();
         }
     }
 </script>
