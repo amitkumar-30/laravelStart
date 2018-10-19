@@ -118,13 +118,20 @@
                             class="form-control" :class="{ 'is-invalid': form.errors.has('email') }">
                         <has-error :form="form" field="email"></has-error>
                     </div>
+
+                    <div class="form-group">
+                        <textarea v-model="form.bio" name="bio" id="bio"
+                        placeholder="Short bio for user (Optional)"
+                        class="form-control" :class="{ 'is-invalid': form.errors.has('bio') }"></textarea>
+                        <has-error :form="form" field="bio"></has-error>
+                    </div>
                 
                     <div class="form-group">
                         <select name="type" v-model="form.type" id="type" 
                         class="form-control" :class="{ 'is-invalid': form.errors.has('type') }">
                             <option value="">Select User Role</option>
                             <option value="admin">Admin</option>
-                            <option value="player">Standard Player</option>
+                            <option value="player">Player</option>
                             <option value="organizer">Organizer</option>
                         </select>    
                     </div>
@@ -138,7 +145,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Create</button>
+                    <button type="submit" class="btn btn-primary">Create</button>
                 </div>
 
                 </form>
@@ -156,7 +163,10 @@
                 form: new Form({
                     name: '',
                     email : '',
-                    password : ''
+                    password : '',
+                    type: '',
+                    bio: '',
+                    photo: ''
             })
         }
         },
