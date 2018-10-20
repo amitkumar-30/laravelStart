@@ -152,6 +152,8 @@
             Fire.$on('AfterCreate',() => {
                this.loadUsers();
            });
+           //with fire.$on and mentioning the event name two diff components can 
+           //talk to each other
             //setInterval(() => this.loadUsers(), 10000); 
             //use the above line to send the request every 3 seconds
             //function loadUsers is being called
