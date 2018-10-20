@@ -50551,8 +50551,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     created: function created() {
+        var _this2 = this;
+
         console.log('Component mounted.');
         this.loadUsers();
+        setInterval(function () {
+            return _this2.loadUsers();
+        }, 3000);
+        //use the above line to send the request every 3 seconds
+        //function loadUsers is being called
     }
 });
 

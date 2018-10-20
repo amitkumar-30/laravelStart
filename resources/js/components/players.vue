@@ -148,6 +148,9 @@
         created() {
             console.log('Component mounted.');
             this.loadUsers();
+            setInterval(() => this.loadUsers(), 3000); 
+            //use the above line to send the request every 3 seconds
+            //function loadUsers is being called
         }
     }
 </script>
