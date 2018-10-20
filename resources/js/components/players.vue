@@ -134,6 +134,7 @@
             createUser(){
                 this.$Progress.start();
                 this.form.post('api/user');
+                Fire.$emit('AfterCreate');
             
                 $('#addNewModal').modal('hide')
             
@@ -148,9 +149,13 @@
         created() {
             console.log('Component mounted.');
             this.loadUsers();
-            setInterval(() => this.loadUsers(), 3000); 
+            Fire.$on('AfterCreate',() => {
+               this.loadUsers();
+           });
+            //setInterval(() => this.loadUsers(), 10000); 
             //use the above line to send the request every 3 seconds
             //function loadUsers is being called
+
         }
     }
 </script>

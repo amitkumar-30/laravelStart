@@ -14060,6 +14060,8 @@ Vue.filter('myDate', function (created) {
   return __WEBPACK_IMPORTED_MODULE_0_moment___default()(created).format('MMMM Do YYYY');
 });
 
+window.Fire = new Vue();
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -50539,6 +50541,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         createUser: function createUser() {
             this.$Progress.start();
             this.form.post('api/user');
+            Fire.$emit('AfterCreate');
 
             $('#addNewModal').modal('hide');
 
@@ -50555,9 +50558,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         console.log('Component mounted.');
         this.loadUsers();
-        setInterval(function () {
-            return _this2.loadUsers();
-        }, 3000);
+        Fire.$on('AfterCreate', function () {
+            _this2.loadUsers();
+        });
+        //setInterval(() => this.loadUsers(), 10000); 
         //use the above line to send the request every 3 seconds
         //function loadUsers is being called
     }
