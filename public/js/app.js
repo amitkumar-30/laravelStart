@@ -50551,7 +50551,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     title: 'User created successfully'
                 });
                 _this2.$Progress.finish();
-            }).catch(function () {});
+            }).catch(function () {
+                _this2.$Progress.fail();
+            });
         }
     },
     created: function created() {

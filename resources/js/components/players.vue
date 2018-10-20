@@ -145,7 +145,7 @@
                     this.$Progress.finish();
                 })
                 .catch(()=>{
-
+                    this.$Progress.fail();
                 })
             }
         },
