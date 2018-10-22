@@ -50512,12 +50512,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
+            editmode: false,
             users: {},
             form: new Form({
+                id: '',
                 name: '',
                 email: '',
                 password: '',
@@ -50529,22 +50534,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
-        newModal: function newModal() {
-            this.form.reset();
-            $('#addNewModal').modal('show');
+        updateUser: function updateUser() {
+            var _this = this;
+
+            this.$Progress.start();
+            this.form.put('api/user/' + this.form.id).then(function () {
+                // success
+                $('#addNewModal').modal('hide');
+                swal('Updated!', 'Information has been updated.', 'success');
+                _this.$Progress.finish();
+                Fire.$emit('AfterCreate');
+            }).catch(function () {
+                _this.$Progress.fail();
+                console.log('Error in updating the record');
+            });
         },
         editModal: function editModal(user) {
+            this.editmode = true;
             this.form.reset();
             $('#addNewModal').modal('show');
             this.form.fill(user);
         },
-        loadUsers: function loadUsers() {
-            var _this = this;
-
-            axios.get("api/user").then(function (_ref) {
-                var data = _ref.data;
-                return _this.users = data.data;
-            });
+        newModal: function newModal() {
+            this.editmode = false;
+            this.form.reset();
+            $('#addNewModal').modal('show');
         },
         deleteUser: function deleteUser(id) {
             var _this2 = this;
@@ -50569,8 +50583,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             });
         },
-        createUser: function createUser() {
+        loadUsers: function loadUsers() {
             var _this3 = this;
+
+            axios.get("api/user").then(function (_ref) {
+                var data = _ref.data;
+                return _this3.users = data.data;
+            });
+        },
+        createUser: function createUser() {
+            var _this4 = this;
 
             this.$Progress.start();
             this.form.post('api/user').then(function () {
@@ -50581,19 +50603,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     type: 'success',
                     title: 'User created successfully'
                 });
-                _this3.$Progress.finish();
+                _this4.$Progress.finish();
             }).catch(function () {
-                _this3.$Progress.fail();
+                _this4.$Progress.fail();
             });
         }
     },
     created: function created() {
-        var _this4 = this;
+        var _this5 = this;
 
         console.log('Component mounted.');
         this.loadUsers();
         Fire.$on('AfterCreate', function () {
-            _this4.loadUsers();
+            _this5.loadUsers();
         });
         //with fire.$on and mentioning the event name two diff components can 
         //talk to each other
@@ -50714,7 +50736,43 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(1),
+              _c("div", { staticClass: "modal-header" }, [
+                _c(
+                  "h5",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: !_vm.editmode,
+                        expression: "!editmode"
+                      }
+                    ],
+                    staticClass: "modal-title",
+                    attrs: { id: "addNewLabel" }
+                  },
+                  [_vm._v("Add New")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "h5",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.editmode,
+                        expression: "editmode"
+                      }
+                    ],
+                    staticClass: "modal-title",
+                    attrs: { id: "addNewLabel" }
+                  },
+                  [_vm._v("Update User's Info")]
+                ),
+                _vm._v(" "),
+                _vm._m(1)
+              ]),
               _vm._v(" "),
               _c(
                 "form",
@@ -50722,7 +50780,7 @@ var render = function() {
                   on: {
                     submit: function($event) {
                       $event.preventDefault()
-                      return _vm.createUser($event)
+                      _vm.editmode ? _vm.updateUser() : _vm.createUser()
                     }
                   }
                 },
@@ -50842,60 +50900,71 @@ var render = function() {
                       1
                     ),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c(
-                        "select",
-                        {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.type,
-                              expression: "form.type"
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.type,
+                                expression: "form.type"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid": _vm.form.errors.has("type")
+                            },
+                            attrs: { name: "type", id: "type" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.form,
+                                  "type",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
                             }
-                          ],
-                          staticClass: "form-control",
-                          class: { "is-invalid": _vm.form.errors.has("type") },
-                          attrs: { name: "type", id: "type" },
-                          on: {
-                            change: function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.$set(
-                                _vm.form,
-                                "type",
-                                $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              )
-                            }
-                          }
-                        },
-                        [
-                          _c("option", { attrs: { value: "" } }, [
-                            _vm._v("Select User Role")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "admin" } }, [
-                            _vm._v("Admin")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "player" } }, [
-                            _vm._v("Player")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "organizer" } }, [
-                            _vm._v("Organizer")
-                          ])
-                        ]
-                      )
-                    ]),
+                          },
+                          [
+                            _c("option", { attrs: { value: "" } }, [
+                              _vm._v("Select User Role")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "admin" } }, [
+                              _vm._v("Admin")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "player" } }, [
+                              _vm._v("Player")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "organizer" } }, [
+                              _vm._v("Organizer")
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "type" }
+                        })
+                      ],
+                      1
+                    ),
                     _vm._v(" "),
                     _c(
                       "div",
@@ -50943,7 +51012,50 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _vm._m(2)
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        attrs: { type: "button", "data-dismiss": "modal" }
+                      },
+                      [_vm._v("Close")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.editmode,
+                            expression: "editmode"
+                          }
+                        ],
+                        staticClass: "btn btn-success",
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("Update")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: !_vm.editmode,
+                            expression: "!editmode"
+                          }
+                        ],
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("Create")]
+                    )
+                  ])
                 ]
               )
             ])
@@ -50978,45 +51090,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c("h5", { staticClass: "modal-title", attrs: { id: "addNewLabel" } }, [
-        _vm._v("Add New")
-      ]),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: {
-            type: "button",
-            "data-dismiss": "modal",
-            "aria-label": "Close"
-          }
-        },
-        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-danger",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_vm._v("Close")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-        [_vm._v("Create")]
-      )
-    ])
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
   }
 ]
 render._withStripped = true
