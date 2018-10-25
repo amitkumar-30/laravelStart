@@ -71890,7 +71890,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n.widget-user-header{\n    background-position: center center;\n    background-size: cover;\n    height: 250px !important;\n}\n.widget-user .card-footer{\n    padding: 0;\n}\n", ""]);
+exports.push([module.i, "\n.widget-user-header{\n    background-position: center center;\n    background-size: cover;\n    height: 250px !important;\n}\n.widget-user .card-footer{\n    padding: 0;\n}\n.img-circle{\n    border-radius:20%;\n}\n.img.img-circle{\n    width:160px;\n}\n", ""]);
 
 // exports
 
@@ -71934,6 +71934,15 @@ module.exports = function listToStyles (parentId, list) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -72163,9 +72172,9 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
+    _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-12 mt-3" }, [
-        _c("div", { staticClass: "card card-widget widget-user-2" }, [
+        _c("div", { staticClass: "card card-widget widget-user" }, [
           _c(
             "div",
             {
@@ -72173,24 +72182,23 @@ var render = function() {
               staticStyle: { "background-image": "url('./img/profilebg.jpg')" }
             },
             [
-              _c("div", { staticClass: "widget-user-header" }, [
-                _c("div", { staticClass: "widget-user-image" }, [
-                  _c("img", {
-                    staticClass: "img-circle elevation-2",
-                    attrs: { src: _vm.getProfilePhoto(), alt: "User Avatar" }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("h3", { staticClass: "widget-user-username" }, [
-                  _vm._v(_vm._s(this.form.name))
-                ]),
-                _vm._v(" "),
-                _c("h5", { staticClass: "widget-user-desc" }, [
-                  _vm._v(_vm._s(this.form.type))
-                ])
+              _c("h3", { staticClass: "widget-user-username" }, [
+                _vm._v(_vm._s(this.form.name))
+              ]),
+              _vm._v(" "),
+              _c("h5", { staticClass: "widget-user-desc" }, [
+                _vm._v(_vm._s(this.form.type))
               ])
             ]
           ),
+          _vm._v(" "),
+          _c("div", { staticClass: "widget-user-image" }, [
+            _c("img", {
+              staticClass: "img-circle",
+              staticStyle: { width: "150px" },
+              attrs: { src: _vm.getProfilePhoto(), alt: "User Avatar" }
+            })
+          ]),
           _vm._v(" "),
           _vm._m(0)
         ])
@@ -72469,40 +72477,34 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-footer p-0" }, [
-      _c("ul", { staticClass: "nav flex-column" }, [
-        _c("li", { staticClass: "nav-item" }, [
-          _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-            _vm._v("\n                        Total Matches Played "),
-            _c("span", { staticClass: "float-right badge bg-primary" }, [
-              _vm._v("30")
+    return _c("div", { staticClass: "card-footer" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-sm-4 border-right" }, [
+          _c("div", { staticClass: "description-block" }, [
+            _c("h5", { staticClass: "description-header" }, [_vm._v("14")]),
+            _vm._v(" "),
+            _c("span", { staticClass: "description-text" }, [
+              _vm._v("Total Matches Played")
             ])
           ])
         ]),
         _vm._v(" "),
-        _c("li", { staticClass: "nav-item" }, [
-          _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-            _vm._v("\n                        Consecutive Wins "),
-            _c("span", { staticClass: "float-right badge bg-danger" }, [
-              _vm._v("5")
+        _c("div", { staticClass: "col-sm-4 border-right" }, [
+          _c("div", { staticClass: "description-block" }, [
+            _c("h5", { staticClass: "description-header" }, [_vm._v("10")]),
+            _vm._v(" "),
+            _c("span", { staticClass: "description-text" }, [
+              _vm._v("Number of Matches Won")
             ])
           ])
         ]),
         _vm._v(" "),
-        _c("li", { staticClass: "nav-item" }, [
-          _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-            _vm._v("\n                        Number of matches won "),
-            _c("span", { staticClass: "float-right badge bg-info" }, [
-              _vm._v("25")
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "nav-item" }, [
-          _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-            _vm._v("\n                        Number of matches lost "),
-            _c("span", { staticClass: "float-right badge bg-success" }, [
-              _vm._v("5")
+        _c("div", { staticClass: "col-sm-4" }, [
+          _c("div", { staticClass: "description-block" }, [
+            _c("h5", { staticClass: "description-header" }, [_vm._v("4")]),
+            _vm._v(" "),
+            _c("span", { staticClass: "description-text" }, [
+              _vm._v("Number of Matches Lost")
             ])
           ])
         ])

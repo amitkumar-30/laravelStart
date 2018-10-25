@@ -7,49 +7,58 @@
 .widget-user .card-footer{
     padding: 0;
 }
+.img-circle{
+    border-radius:20%;
+}
+.img.img-circle{
+    width:160px;
+}
 </style>
 
 
 <template>
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="row">
+            <!-- top setion start -->
             <div class="col-md-12 mt-3">
-                <div class="card card-widget widget-user-2">
-                    <!-- Add the bg color to the header using any of the bg-* classes -->
-                    <div class="widget-user-header text-white" style="background-image: url('./img/profilebg.jpg')">
-                        <div class="widget-user-header">
-                            <div class="widget-user-image">
-                                <img class="img-circle elevation-2" :src="getProfilePhoto()" alt="User Avatar">
-                            </div>
-                            <!-- /.widget-user-image -->
-                            <h3 class="widget-user-username">{{this.form.name}}</h3>
-                            <h5 class="widget-user-desc">{{this.form.type}}</h5>
+                <div class="card card-widget widget-user">
+                <!-- Add the bg color to the header using any of the bg-* classes -->
+                <div class="widget-user-header text-white" style="background-image:url('./img/profilebg.jpg')">
+                    <h3 class="widget-user-username">{{this.form.name}}</h3>
+                    <h5 class="widget-user-desc">{{this.form.type}}</h5>
+                </div>
+                <div class="widget-user-image">
+                    <img class="img-circle"  style="width:150px;" :src="getProfilePhoto()" alt="User Avatar">
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                    <div class="col-sm-4 border-right">
+                        <div class="description-block">
+                        <h5 class="description-header">14</h5>
+                        <span class="description-text">Total Matches Played</span>
                         </div>
+                        <!-- /.description-block -->
                     </div>
-                    <div class="card-footer p-0">
-                        <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                            Total Matches Played <span class="float-right badge bg-primary">30</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                            Consecutive Wins <span class="float-right badge bg-danger">5</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                            Number of matches won <span class="float-right badge bg-info">25</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                            Number of matches lost <span class="float-right badge bg-success">5</span>
-                            </a>
-                        </li>
-                        </ul>
+                    <!-- /.col -->
+                    <div class="col-sm-4 border-right">
+                        <div class="description-block">
+                        <h5 class="description-header">10</h5>
+                        <span class="description-text">Number of Matches Won</span>
+                        </div>
+                        <!-- /.description-block -->
                     </div>
+                    <!-- /.col -->
+                    <div class="col-sm-4">
+                        <div class="description-block">
+                        <h5 class="description-header">4</h5>
+                        <span class="description-text">Number of Matches Lost</span>
+                        </div>
+                        <!-- /.description-block -->
+                    </div>
+                    <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </div>
                 </div>
             </div>
             <!-- top setion end -->
