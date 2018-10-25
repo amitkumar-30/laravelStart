@@ -400,7 +400,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       Philly Ping Pong
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2017-2018 <a href="https://pto3.herokuapp.com/pto3">pto3.com</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2017-2018 <a href="https://pto3.herokuapp.com/pto3">amitpingpong.com</a>.</strong> All rights reserved.
   </footer>
 </div>
 <!-- ./wrapper -->
