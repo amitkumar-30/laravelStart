@@ -11,7 +11,7 @@
     border-radius:20%;
 }
 .img.img-circle{
-    width:160px;
+    width:150px;
 }
 </style>
 
@@ -27,7 +27,7 @@
                     <h3 class="widget-user-username">{{this.form.name}}</h3>
                     <h5 class="widget-user-desc">{{this.form.type}}</h5>
                 </div>
-                <div class="widget-user-image">
+                <div class="widget-user-image" style="top:25px;">
                     <img class="img-circle"  style="width:150px;" :src="getProfilePhoto()" alt="User Avatar">
                 </div>
                 <div class="card-footer">
@@ -174,6 +174,11 @@
                 this.$Progress.start();
                 this.form.put('api/profile')
                 .then(() => {
+                    swal(
+                       'Updated!',
+                       'Profile info has been updated.',
+                       'success'
+                    )
                     this.$Progress.finish();
                 })
                 .catch(() => {
@@ -194,17 +199,18 @@
                 });*/
             },
             updateProfile(e){
-                // console.log('uploading');
+                    console.log('uploading');
                     let file = e.target.files[0];
                     console.log(file);
                     let reader = new FileReader();
                     // let vm = this;
                     if(file['size'] < 2111775){
                         reader.onloadend = (file) => {
-                            // console.log('RESULT', reader.result)
+                            console.log('RESULT', reader.result)
                             this.form.photo = reader.result;
                         }
                         reader.readAsDataURL(file);
+                        console.log('end of upload');
                     }else{
                          swal({
                             type: 'error',
@@ -213,7 +219,7 @@
                         })
                     }
             }
-        },
+        }   ,
         created() {
             axios.get("api/profile")
             .then(({ data }) => (this.form.fill(data)));

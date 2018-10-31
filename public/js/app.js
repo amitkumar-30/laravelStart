@@ -71890,7 +71890,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n.widget-user-header{\n    background-position: center center;\n    background-size: cover;\n    height: 250px !important;\n}\n.widget-user .card-footer{\n    padding: 0;\n}\n.img-circle{\n    border-radius:20%;\n}\n.img.img-circle{\n    width:160px;\n}\n", ""]);
+exports.push([module.i, "\n.widget-user-header{\n    background-position: center center;\n    background-size: cover;\n    height: 250px !important;\n}\n.widget-user .card-footer{\n    padding: 0;\n}\n.img-circle{\n    border-radius:20%;\n}\n.img.img-circle{\n    width:150px;\n}\n", ""]);
 
 // exports
 
@@ -72112,6 +72112,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.$Progress.start();
             this.form.put('api/profile').then(function () {
+                swal('Updated!', 'Profile info has been updated.', 'success');
                 _this.$Progress.finish();
             }).catch(function () {
                 _this.$Progress.fail();
@@ -72133,17 +72134,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         updateProfile: function updateProfile(e) {
             var _this2 = this;
 
-            // console.log('uploading');
+            console.log('uploading');
             var file = e.target.files[0];
             console.log(file);
             var reader = new FileReader();
             // let vm = this;
             if (file['size'] < 2111775) {
                 reader.onloadend = function (file) {
-                    // console.log('RESULT', reader.result)
+                    console.log('RESULT', reader.result);
                     _this2.form.photo = reader.result;
                 };
                 reader.readAsDataURL(file);
+                console.log('end of upload');
             } else {
                 swal({
                     type: 'error',
@@ -72192,13 +72194,17 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _c("div", { staticClass: "widget-user-image" }, [
-            _c("img", {
-              staticClass: "img-circle",
-              staticStyle: { width: "150px" },
-              attrs: { src: _vm.getProfilePhoto(), alt: "User Avatar" }
-            })
-          ]),
+          _c(
+            "div",
+            { staticClass: "widget-user-image", staticStyle: { top: "25px" } },
+            [
+              _c("img", {
+                staticClass: "img-circle",
+                staticStyle: { width: "150px" },
+                attrs: { src: _vm.getProfilePhoto(), alt: "User Avatar" }
+              })
+            ]
+          ),
           _vm._v(" "),
           _vm._m(0)
         ])
