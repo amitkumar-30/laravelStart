@@ -30703,11 +30703,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vform__ = __webpack_require__(168);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vform___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vform__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sweetalert2__ = __webpack_require__(169);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_sweetalert2__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_router__ = __webpack_require__(170);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_progressbar__ = __webpack_require__(171);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_progressbar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vue_progressbar__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Gate__ = __webpack_require__(236);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_sweetalert2__ = __webpack_require__(169);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_sweetalert2__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_router__ = __webpack_require__(170);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vue_progressbar__ = __webpack_require__(171);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vue_progressbar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_vue_progressbar__);
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -30722,9 +30723,12 @@ window.Vue = __webpack_require__(164);
 
 
 
-window.swal = __WEBPACK_IMPORTED_MODULE_2_sweetalert2___default.a;
+Vue.prototype.$gate = new __WEBPACK_IMPORTED_MODULE_2__Gate__["a" /* default */](window.user);
 
-var toast = __WEBPACK_IMPORTED_MODULE_2_sweetalert2___default.a.mixin({
+
+window.swal = __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default.a;
+
+var toast = __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default.a.mixin({
   toast: true,
   position: 'center',
   showConfirmButton: false,
@@ -30738,10 +30742,10 @@ Vue.component(__WEBPACK_IMPORTED_MODULE_1_vform__["HasError"].name, __WEBPACK_IM
 Vue.component(__WEBPACK_IMPORTED_MODULE_1_vform__["AlertError"].name, __WEBPACK_IMPORTED_MODULE_1_vform__["AlertError"]);
 
 
-Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_router__["a" /* default */]);
+Vue.use(__WEBPACK_IMPORTED_MODULE_4_vue_router__["a" /* default */]);
 
 
-Vue.use(__WEBPACK_IMPORTED_MODULE_4_vue_progressbar___default.a, {
+Vue.use(__WEBPACK_IMPORTED_MODULE_5_vue_progressbar___default.a, {
   color: 'rgb(143, 255, 199)',
   failedColor: 'red',
   height: '10px'
@@ -30749,7 +30753,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_4_vue_progressbar___default.a, {
 
 var routes = [{ path: '/dashboard', component: __webpack_require__(172) }, { path: '/profile', component: __webpack_require__(175) }, { path: '/developer', component: __webpack_require__(181) }, { path: '/home', component: __webpack_require__(184) }, { path: '/players', component: __webpack_require__(187) }, { path: '/rules', component: __webpack_require__(190) }, { path: '/gallery', component: __webpack_require__(193) }, { path: '/recordmatch', component: __webpack_require__(196) }, { path: '/standings', component: __webpack_require__(199) }];
 
-var router = new __WEBPACK_IMPORTED_MODULE_3_vue_router__["a" /* default */]({
+var router = new __WEBPACK_IMPORTED_MODULE_4_vue_router__["a" /* default */]({
   mode: 'history',
   routes: routes // short for `routes: routes`
 });
@@ -72962,6 +72966,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -73033,10 +73038,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         loadUsers: function loadUsers() {
             var _this3 = this;
 
-            axios.get("api/user").then(function (_ref) {
-                var data = _ref.data;
-                return _this3.users = data.data;
-            });
+            if (this.$gate.isPlayer()) {
+                //this is defined in Gate.js
+                axios.get("api/user").then(function (_ref) {
+                    var data = _ref.data;
+                    return _this3.users = data.data;
+                });
+            }
         },
         createUser: function createUser() {
             var _this4 = this;
@@ -76287,6 +76295,54 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 221 */,
+/* 222 */,
+/* 223 */,
+/* 224 */,
+/* 225 */,
+/* 226 */,
+/* 227 */,
+/* 228 */,
+/* 229 */,
+/* 230 */,
+/* 231 */,
+/* 232 */,
+/* 233 */,
+/* 234 */,
+/* 235 */,
+/* 236 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Gate = function () {
+  function Gate(user) {
+    _classCallCheck(this, Gate);
+
+    this.user = user;
+  }
+
+  _createClass(Gate, [{
+    key: 'isAdmin',
+    value: function isAdmin() {
+      return this.user.type === 'admin';
+    }
+  }, {
+    key: 'isPlayer',
+    value: function isPlayer() {
+      return this.user.type === 'player';
+    }
+  }]);
+
+  return Gate;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (Gate);
 
 /***/ })
 /******/ ]);

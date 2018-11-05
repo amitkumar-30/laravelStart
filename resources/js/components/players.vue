@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <!--<div class="row mt-5" v-if="$gate.isAdmin() || $gate.isPlayer()">-->
         <div class="row mt-5">
           <div class="col-md-12">
             <div class="card">
@@ -188,7 +189,9 @@
                     })
             },
             loadUsers(){
-                axios.get("api/user").then(({ data }) => (this.users = data.data));
+                if(this.$gate.isPlayer()){ //this is defined in Gate.js
+                    axios.get("api/user").then(({ data }) => (this.users = data.data));
+                }
             },
             createUser(){
                 this.$Progress.start();
