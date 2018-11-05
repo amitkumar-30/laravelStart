@@ -73038,7 +73038,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         loadUsers: function loadUsers() {
             var _this3 = this;
 
-            if (this.$gate.isPlayer()) {
+            if (this.$gate.isPlayer() || this.$gate.isAdmin()) {
                 //this is defined in Gate.js
                 axios.get("api/user").then(function (_ref) {
                     var data = _ref.data;
