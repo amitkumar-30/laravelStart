@@ -17,6 +17,7 @@ class UserController extends Controller
     public function __construct()
     {
       $this->middleware('auth:api');
+      //$this->authorize('isAdmin');    //it will take effect for all methods declared below
     }
     
     /**
@@ -26,7 +27,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return User::latest()->paginate(10);
+        return User::latest()->paginate(30);
     }
 
     /**
@@ -145,6 +146,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('isAdmin');        //This checks for flag isAdmin defined in AuthServiceProvider.php
+                                        //To hide a component in UI use @can('isAdmin'), refer master.blade.php file
+                                        //define in contructor to authorize all methods
         $user = User::findOrFail($id);
         // delete the user
         $user->delete();
