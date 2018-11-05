@@ -21,7 +21,11 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('type')->default('user');
             $table->mediumText('bio')->nullable();
-            $table->string('photo')->default('profile.png');
+            $table->integer('matches_played')->default(0);
+            $table->integer('matches_won')->default(0);
+            $table->integer('matches_lost')->default(0);
+            $table->integer('points')->default(200);
+            $table->string('photo')->default('profile.png')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
