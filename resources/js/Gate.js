@@ -11,4 +11,10 @@ export default class Gate{
     return this.user.type === 'player';
   }
 
+  isAdminOrPlayer(){
+    if(this.user.type === 'admin' || this.user.type === 'player'){
+      return true;
+    }
+  }
+
 }

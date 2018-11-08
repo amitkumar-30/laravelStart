@@ -190,6 +190,8 @@
             },
             loadUsers(){
                 if(this.$gate.isPlayer() || this.$gate.isAdmin()){ //this is defined in Gate.js
+                    //one more way of doing above
+                    //if(this.$gate.isAdminOrPlayer()) //function defined in Gate.js file
                     axios.get("api/user").then(({ data }) => (this.users = data.data));
                 }
             },
