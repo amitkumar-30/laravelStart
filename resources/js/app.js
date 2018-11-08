@@ -51,7 +51,8 @@ let routes = [
 	{ path: '/rules', component: require('./components/Rules.vue') },
 	{ path: '/gallery', component: require('./components/Gallery.vue') },
 	{ path: '/recordmatch', component: require('./components/Recordmatch.vue') },
-	{ path: '/standings', component: require('./components/Standings.vue') }
+  { path: '/standings', component: require('./components/Standings.vue') },
+  { path: '*', component: require('./components/NotFound.vue') }
 
 ]
 

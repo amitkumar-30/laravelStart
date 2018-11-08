@@ -30752,7 +30752,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_5_vue_progressbar___default.a, {
   height: '10px'
 });
 
-var routes = [{ path: '/dashboard', component: __webpack_require__(173) }, { path: '/profile', component: __webpack_require__(176) }, { path: '/developer', component: __webpack_require__(182) }, { path: '/home', component: __webpack_require__(185) }, { path: '/players', component: __webpack_require__(188) }, { path: '/rules', component: __webpack_require__(191) }, { path: '/gallery', component: __webpack_require__(194) }, { path: '/recordmatch', component: __webpack_require__(197) }, { path: '/standings', component: __webpack_require__(200) }];
+var routes = [{ path: '/dashboard', component: __webpack_require__(173) }, { path: '/profile', component: __webpack_require__(176) }, { path: '/developer', component: __webpack_require__(182) }, { path: '/home', component: __webpack_require__(185) }, { path: '/players', component: __webpack_require__(188) }, { path: '/rules', component: __webpack_require__(191) }, { path: '/gallery', component: __webpack_require__(194) }, { path: '/recordmatch', component: __webpack_require__(197) }, { path: '/standings', component: __webpack_require__(200) }, { path: '*', component: __webpack_require__(218) }];
 
 var router = new __WEBPACK_IMPORTED_MODULE_4_vue_router__["a" /* default */]({
   mode: 'history',
